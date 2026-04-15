@@ -1,0 +1,5 @@
+skip-checks:
+  - id: CKV_AWS_144
+    comment: "Cross-region replication is supported via var.replication; enforcement is left to the caller."
+  - id: CKV_AWS_300
+    comment: "abort_incomplete_multipart_upload is optional per lifecycle rule; callers set it where appropriate."
