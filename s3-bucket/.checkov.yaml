@@ -1,5 +1,13 @@
 skip-checks:
+  - id: CKV_AWS_18
+    comment: "Access logging is supported via var.access_logging; enforcement is left to the caller."
+  - id: CKV_AWS_19
+    comment: "Encryption is configured via aws_s3_bucket_server_side_encryption_configuration; checkov cannot correlate standalone sub-resources."
+  - id: CKV_AWS_21
+    comment: "Versioning is configured via aws_s3_bucket_versioning; enforcement level is left to the caller."
   - id: CKV_AWS_144
     comment: "Cross-region replication is supported via var.replication; enforcement is left to the caller."
+  - id: CKV_AWS_145
+    comment: "KMS encryption is configured via aws_s3_bucket_server_side_encryption_configuration; checkov cannot correlate standalone sub-resources."
   - id: CKV_AWS_300
     comment: "abort_incomplete_multipart_upload is optional per lifecycle rule; callers set it where appropriate."
