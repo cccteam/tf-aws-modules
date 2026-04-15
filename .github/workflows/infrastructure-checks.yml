@@ -1,0 +1,24 @@
+name: Infrastructure Checks
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened] # these are the defaults - synchronize means 'commits pushed to PR'
+
+jobs:
+  terraform-ci:
+    name: Terraform CI
+    uses: cccteam/github-workflows/.github/workflows/terraform-ci.yml@1ccb2a0d5c48271b34c23abb3821e365019838be # v5.24.0
+    with:
+      terraform_version: '1.14.3'
+      upload_sarif: true
+    secrets:
+      app_id: ${{ secrets.TERRAFORM_APP_ID }}
+      app_pem: ${{ secrets.TERRAFORM_APP_PEM }}
+    permissions:
+      actions: read
+      contents: write
+      pull-requests: write
+      security-events: write
