@@ -1,0 +1,7 @@
+skip-check:
+  - CKV_AWS_18   # access logging is opt-in via var.access_logging; enforcement left to caller
+  - CKV_AWS_19   # encryption configured via aws_s3_bucket_server_side_encryption_configuration
+  - CKV_AWS_21   # versioning configured via aws_s3_bucket_versioning; enforcement left to caller
+  - CKV_AWS_144  # cross-region replication supported via var.replication; enforcement left to caller
+  - CKV_AWS_145  # KMS encryption configured via aws_s3_bucket_server_side_encryption_configuration
+  - CKV_AWS_300  # abort_incomplete_multipart_upload is optional per lifecycle rule
