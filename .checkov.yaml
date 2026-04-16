@@ -1,7 +1,8 @@
 skip-check:
-  - CKV_AWS_18   # s3-bucket: access logging is opt-in via var.access_logging; enforcement left to caller
-  - CKV_AWS_19   # s3-bucket: encryption configured via aws_s3_bucket_server_side_encryption_configuration
-  - CKV_AWS_21   # s3-bucket: versioning configured via aws_s3_bucket_versioning; enforcement left to caller
-  - CKV_AWS_144  # s3-bucket: cross-region replication supported via var.replication; enforcement left to caller
-  - CKV_AWS_145  # s3-bucket: KMS encryption configured via aws_s3_bucket_server_side_encryption_configuration
-  - CKV_AWS_300  # s3-bucket: abort_incomplete_multipart_upload is optional per lifecycle rule
+  - CKV_AWS_18 # s3-bucket: access logging is opt-in via var.access_logging; enforcement left to caller
+  - CKV_AWS_19 # s3-bucket: encryption configured via aws_s3_bucket_server_side_encryption_configuration
+  - CKV_AWS_21 # s3-bucket: versioning configured via aws_s3_bucket_versioning; enforcement left to caller
+  - CKV_AWS_144 # s3-bucket: cross-region replication supported via var.replication; enforcement left to caller
+  - CKV_AWS_145 # s3-bucket: KMS encryption configured via aws_s3_bucket_server_side_encryption_configuration
+  - CKV_AWS_300 # s3-bucket: abort_incomplete_multipart_upload is optional per lifecycle rule
+  - CKV_AWS_65 # ecs: Container Insights enablement is caller-controlled via var.container_insights
