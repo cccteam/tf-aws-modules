@@ -28,6 +28,9 @@
     },
     "org-policy": {
       "package-name": "org-policy"
+    },
+    "ecs-cluster": {
+      "package-name": "ecs-cluster"
     }
   }
 }
