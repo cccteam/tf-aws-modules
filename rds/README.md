@@ -1,0 +1,141 @@
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_db_instance.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance) | resource |
+| [aws_db_option_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_option_group) | resource |
+| [aws_db_parameter_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_parameter_group) | resource |
+| [aws_db_subnet_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_subnet_group) | resource |
+| [aws_rds_cluster.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/rds_cluster) | resource |
+| [aws_rds_cluster_instance.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/rds_cluster_instance) | resource |
+| [aws_rds_cluster_parameter_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/rds_cluster_parameter_group) | resource |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_allocated_storage"></a> [allocated\_storage](#input\_allocated\_storage) | (Required when create\_cluster is null) The allocated storage size in gibibytes. | `number` | `null` | no |
+| <a name="input_allow_major_version_upgrade"></a> [allow\_major\_version\_upgrade](#input\_allow\_major\_version\_upgrade) | (Optional) Whether to allow major engine version upgrades when changing the engine version. | `bool` | `null` | no |
+| <a name="input_apply_immediately"></a> [apply\_immediately](#input\_apply\_immediately) | (Optional) Whether to apply changes immediately or defer them to the next maintenance window. | `bool` | `false` | no |
+| <a name="input_auto_minor_version_upgrade"></a> [auto\_minor\_version\_upgrade](#input\_auto\_minor\_version\_upgrade) | (Optional) Whether to automatically apply minor engine version upgrades during the maintenance window. | `bool` | `true` | no |
+| <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | (Optional) The AZ in which to create the instance. Only applies when create\_cluster is null. | `string` | `null` | no |
+| <a name="input_backup_retention_period"></a> [backup\_retention\_period](#input\_backup\_retention\_period) | (Optional) The number of days to retain automated backups. Must be between 0 and 35. | `number` | `7` | no |
+| <a name="input_backup_window"></a> [backup\_window](#input\_backup\_window) | (Optional) The daily time range during which automated backups are created. Format: 'hh24:mi-hh24:mi' (e.g., '03:00-04:00'). | `string` | `null` | no |
+| <a name="input_blue_green_update"></a> [blue\_green\_update](#input\_blue\_green\_update) | (Optional) Enables low-downtime updates using RDS Blue/Green deployments. Supported for MySQL, MariaDB, and PostgreSQL. Only applies when cluster\_config is null. | <pre>object({<br/>    enabled = bool<br/>  })</pre> | `null` | no |
+| <a name="input_ca_cert_identifier"></a> [ca\_cert\_identifier](#input\_ca\_cert\_identifier) | (Optional) The identifier of the CA certificate to use for the instance or cluster instances. | `string` | `null` | no |
+| <a name="input_character_set_name"></a> [character\_set\_name](#input\_character\_set\_name) | (Optional) The character set name for Oracle and SQL Server engines. Only applies when create\_cluster is null. | `string` | `null` | no |
+| <a name="input_cluster_config"></a> [cluster\_config](#input\_cluster\_config) | (Optional) When set, creates an Aurora cluster (aws\_rds\_cluster + aws\_rds\_cluster\_instance) instead of a standard RDS instance. The engine must be 'aurora-mysql' or 'aurora-postgresql'. | <pre>object({<br/>    default_instance_class       = string<br/>    storage_type                 = optional(string) # set to "aurora-iopt1" for Aurora I/O Optimized<br/>    cluster_parameter_group_name = optional(string)<br/>    parameter_group_family       = optional(string)<br/>    parameters = optional(list(object({<br/>      name         = string<br/>      value        = string<br/>      apply_method = optional(string)<br/>    })), [])<br/>    global_cluster_identifier     = optional(string)<br/>    replication_source_identifier = optional(string)<br/>    backtrack_window              = optional(number)<br/>    enable_http_endpoint          = optional(bool)<br/>    iam_roles                     = optional(set(string))<br/>    availability_zones            = optional(list(string))<br/>    source_region                 = optional(string)<br/>    serverlessv2_scaling_configuration = optional(object({<br/>      min_capacity = number<br/>      max_capacity = number<br/>    }))<br/>    restore_to_point_in_time = optional(object({<br/>      source_cluster_identifier  = optional(string)<br/>      restore_type               = optional(string)<br/>      restore_to_time            = optional(string)<br/>      use_latest_restorable_time = optional(bool)<br/>    }))<br/>    instances = map(object({<br/>      instance_class               = optional(string)<br/>      publicly_accessible          = optional(bool)<br/>      auto_minor_version_upgrade   = optional(bool)<br/>      performance_insights_enabled = optional(bool)<br/>      parameter_group_name         = optional(string)<br/>      availability_zone            = optional(string)<br/>      promotion_tier               = optional(number)<br/>      preferred_backup_window      = optional(string)<br/>      preferred_maintenance_window = optional(string)<br/>      copy_tags_to_snapshot        = optional(bool)<br/>    }))<br/>  })</pre> | `null` | no |
+| <a name="input_copy_tags_to_snapshot"></a> [copy\_tags\_to\_snapshot](#input\_copy\_tags\_to\_snapshot) | (Optional) Whether to copy all resource tags to snapshots. | `bool` | `true` | no |
+| <a name="input_create_option_group"></a> [create\_option\_group](#input\_create\_option\_group) | (Optional) When set, creates an aws\_db\_option\_group. Only applies when create\_cluster is null. Primarily used for MySQL and Oracle engines. | <pre>object({<br/>    engine_name          = string<br/>    major_engine_version = string<br/>    description          = optional(string, "Managed by Terraform")<br/>    options = optional(list(object({<br/>      option_name = string<br/>      port        = optional(number)<br/>      option_settings = optional(list(object({<br/>        name  = string<br/>        value = string<br/>      })), [])<br/>    })), [])<br/>  })</pre> | `null` | no |
+| <a name="input_create_parameter_group"></a> [create\_parameter\_group](#input\_create\_parameter\_group) | (Optional) When set, creates an aws\_db\_parameter\_group. For Aurora, this is used as the instance-level parameter group. | <pre>object({<br/>    family      = string<br/>    description = optional(string, "Managed by Terraform")<br/>    parameters = optional(list(object({<br/>      name         = string<br/>      value        = string<br/>      apply_method = optional(string)<br/>    })), [])<br/>  })</pre> | `null` | no |
+| <a name="input_create_subnet_group"></a> [create\_subnet\_group](#input\_create\_subnet\_group) | (Optional) Whether to create an aws\_db\_subnet\_group from subnet\_ids. Set to false and provide db\_subnet\_group\_name to use an existing group. | `bool` | `true` | no |
+| <a name="input_database_insights_mode"></a> [database\_insights\_mode](#input\_database\_insights\_mode) | (Optional) The mode of Database Insights to enable. Valid values: 'standard', 'advanced'. Only applies when cluster\_config is null. | `string` | `null` | no |
+| <a name="input_database_name"></a> [database\_name](#input\_database\_name) | (Optional) The name of the initial database to create. | `string` | `null` | no |
+| <a name="input_db_parameter_group_name"></a> [db\_parameter\_group\_name](#input\_db\_parameter\_group\_name) | (Optional) Name of an existing DB parameter group. Used when create\_parameter\_group is null. | `string` | `null` | no |
+| <a name="input_db_subnet_group_name"></a> [db\_subnet\_group\_name](#input\_db\_subnet\_group\_name) | (Optional) Name of an existing DB subnet group. Used when create\_subnet\_group is false. | `string` | `null` | no |
+| <a name="input_dedicated_log_volume"></a> [dedicated\_log\_volume](#input\_dedicated\_log\_volume) | (Optional) Use a dedicated log volume (DLV) for the DB instance. Requires Provisioned IOPS. Only applies when cluster\_config is null. | `bool` | `null` | no |
+| <a name="input_delete_automated_backups"></a> [delete\_automated\_backups](#input\_delete\_automated\_backups) | (Optional) Whether to remove automated backups immediately after the DB instance is deleted. Defaults to true in AWS. | `bool` | `null` | no |
+| <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | (Optional) Whether to enable deletion protection. | `bool` | `true` | no |
+| <a name="input_domain"></a> [domain](#input\_domain) | (Optional) The ID of the Active Directory domain to join. Conflicts with domain\_fqdn. Only applies when cluster\_config is null. | `string` | `null` | no |
+| <a name="input_domain_auth_secret_arn"></a> [domain\_auth\_secret\_arn](#input\_domain\_auth\_secret\_arn) | (Optional) The ARN of the Secrets Manager secret with self managed Active Directory credentials. Conflicts with domain and domain\_iam\_role\_name. Only applies when cluster\_config is null. | `string` | `null` | no |
+| <a name="input_domain_dns_ips"></a> [domain\_dns\_ips](#input\_domain\_dns\_ips) | (Optional) The IPv4 DNS IP addresses of your primary and secondary self managed Active Directory domain controllers. Conflicts with domain and domain\_iam\_role\_name. Only applies when cluster\_config is null. | `list(string)` | `null` | no |
+| <a name="input_domain_fqdn"></a> [domain\_fqdn](#input\_domain\_fqdn) | (Optional) The fully qualified domain name of a self managed Active Directory. Conflicts with domain and domain\_iam\_role\_name. Only applies when cluster\_config is null. | `string` | `null` | no |
+| <a name="input_domain_iam_role_name"></a> [domain\_iam\_role\_name](#input\_domain\_iam\_role\_name) | (Optional) The name of the IAM role to use when making API calls to the Directory Service. Conflicts with domain\_fqdn. Only applies when cluster\_config is null. | `string` | `null` | no |
+| <a name="input_domain_ou"></a> [domain\_ou](#input\_domain\_ou) | (Optional) The self managed Active Directory organizational unit to join. Conflicts with domain and domain\_iam\_role\_name. Only applies when cluster\_config is null. | `string` | `null` | no |
+| <a name="input_enabled_cloudwatch_logs_exports"></a> [enabled\_cloudwatch\_logs\_exports](#input\_enabled\_cloudwatch\_logs\_exports) | (Optional) List of log types to export to CloudWatch Logs. Valid values depend on the engine (e.g., 'audit', 'error', 'general', 'slowquery' for MySQL; 'postgresql', 'upgrade' for PostgreSQL). | `list(string)` | `[]` | no |
+| <a name="input_engine"></a> [engine](#input\_engine) | The database engine. For standard RDS: 'mysql', 'postgres', 'mariadb', 'oracle-ee', 'sqlserver-ex', etc. For Aurora: 'aurora-mysql' or 'aurora-postgresql'. | `string` | n/a | yes |
+| <a name="input_engine_lifecycle_support"></a> [engine\_lifecycle\_support](#input\_engine\_lifecycle\_support) | (Optional) The life cycle type for the DB instance. Valid values: 'open-source-rds-extended-support', 'open-source-rds-extended-support-disabled'. Only applies when create\_cluster is null. | `string` | `null` | no |
+| <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | (Optional) The engine version. When null, AWS uses the default version for the engine. | `string` | `null` | no |
+| <a name="input_enhanced_monitoring_interval"></a> [enhanced\_monitoring\_interval](#input\_enhanced\_monitoring\_interval) | (Optional) The interval in seconds at which to collect enhanced monitoring metrics. Valid values: 0 (disabled), 1, 5, 10, 15, 30, 60. | `number` | `0` | no |
+| <a name="input_final_snapshot_identifier"></a> [final\_snapshot\_identifier](#input\_final\_snapshot\_identifier) | (Optional) The snapshot identifier for the final snapshot. Used when skip\_final\_snapshot is false. When null, defaults to the identifier. | `string` | `null` | no |
+| <a name="input_iam_database_authentication_enabled"></a> [iam\_database\_authentication\_enabled](#input\_iam\_database\_authentication\_enabled) | (Optional) Whether to enable IAM database authentication. | `bool` | `null` | no |
+| <a name="input_identifier"></a> [identifier](#input\_identifier) | The identifier used to name the RDS instance, cluster, and all associated resources. | `string` | n/a | yes |
+| <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | (Required when create\_cluster is null) The instance class. e.g., 'db.t3.micro'. Not used for Aurora clusters (use create\_cluster.default\_instance\_class instead). | `string` | `null` | no |
+| <a name="input_iops"></a> [iops](#input\_iops) | (Optional) The amount of provisioned IOPS. Required for 'io1' and 'io2', optional for 'gp3'. Only applies when create\_cluster is null. | `number` | `null` | no |
+| <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | (Optional) ARN of an existing KMS key for storage encryption. When null, AWS uses the default aws/rds managed key. | `string` | `null` | no |
+| <a name="input_license_model"></a> [license\_model](#input\_license\_model) | (Optional) The license model. Required for certain engines (e.g., 'license-included' for Oracle or SQL Server). Only applies when create\_cluster is null. | `string` | `null` | no |
+| <a name="input_maintenance_window"></a> [maintenance\_window](#input\_maintenance\_window) | (Optional) The weekly time range during which system maintenance can occur. Format: 'ddd:hh24:mi-ddd:hh24:mi' (e.g., 'sun:05:00-sun:06:00'). | `string` | `null` | no |
+| <a name="input_manage_master_user_password"></a> [manage\_master\_user\_password](#input\_manage\_master\_user\_password) | (Optional) When true, AWS manages the master password in Secrets Manager. Mutually exclusive with master\_password. | `bool` | `null` | no |
+| <a name="input_master_password"></a> [master\_password](#input\_master\_password) | (Optional) The master password. Sensitive. Mutually exclusive with manage\_master\_user\_password. | `string` | `null` | no |
+| <a name="input_master_user_secret_kms_key_id"></a> [master\_user\_secret\_kms\_key\_id](#input\_master\_user\_secret\_kms\_key\_id) | (Optional) The ARN of the KMS key used to encrypt the master user password in Secrets Manager. Only applies when manage\_master\_user\_password is true. | `string` | `null` | no |
+| <a name="input_master_username"></a> [master\_username](#input\_master\_username) | The master username for the database. | `string` | n/a | yes |
+| <a name="input_max_allocated_storage"></a> [max\_allocated\_storage](#input\_max\_allocated\_storage) | (Optional) When set, enables storage autoscaling up to this value in gibibytes. Only applies when create\_cluster is null. | `number` | `null` | no |
+| <a name="input_monitoring_role_arn"></a> [monitoring\_role\_arn](#input\_monitoring\_role\_arn) | (Optional) ARN of the IAM role for enhanced monitoring. Required when enhanced\_monitoring\_interval > 0. | `string` | `null` | no |
+| <a name="input_multi_az"></a> [multi\_az](#input\_multi\_az) | (Optional) Whether to enable Multi-AZ deployment. Only applies when create\_cluster is null. | `bool` | `false` | no |
+| <a name="input_nchar_character_set_name"></a> [nchar\_character\_set\_name](#input\_nchar\_character\_set\_name) | (Optional) The national character set name for Oracle engines. Only applies when create\_cluster is null. | `string` | `null` | no |
+| <a name="input_network_type"></a> [network\_type](#input\_network\_type) | (Optional) The network type for the instance or cluster. Valid values: 'IPV4', 'DUAL'. | `string` | `null` | no |
+| <a name="input_option_group_name"></a> [option\_group\_name](#input\_option\_group\_name) | (Optional) Name of an existing option group. Used when create\_option\_group is null and create\_cluster is null. | `string` | `null` | no |
+| <a name="input_performance_insights_enabled"></a> [performance\_insights\_enabled](#input\_performance\_insights\_enabled) | (Optional) Whether to enable Performance Insights. | `bool` | `false` | no |
+| <a name="input_performance_insights_kms_key_id"></a> [performance\_insights\_kms\_key\_id](#input\_performance\_insights\_kms\_key\_id) | (Optional) ARN of the KMS key to encrypt Performance Insights data. When null, the AWS-managed key is used. | `string` | `null` | no |
+| <a name="input_performance_insights_retention_period"></a> [performance\_insights\_retention\_period](#input\_performance\_insights\_retention\_period) | (Optional) The number of days to retain Performance Insights data. Valid values: 7, 731, or a multiple of 31 (up to 731). Defaults to 7 when null. | `number` | `null` | no |
+| <a name="input_port"></a> [port](#input\_port) | (Optional) The port on which the database accepts connections. When null, the default port for the engine is used. | `number` | `null` | no |
+| <a name="input_publicly_accessible"></a> [publicly\_accessible](#input\_publicly\_accessible) | (Optional) Whether the instance or cluster instances are publicly accessible. | `bool` | `false` | no |
+| <a name="input_region"></a> [region](#input\_region) | (Optional) AWS region to deploy resources into. When null, the provider's default region is used. | `string` | `null` | no |
+| <a name="input_replica_mode"></a> [replica\_mode](#input\_replica\_mode) | (Optional) Specifies whether the replica is in 'mounted' or 'open-read-only' mode. Only supported for Oracle instances. Only applies when cluster\_config is null. | `string` | `null` | no |
+| <a name="input_replicate_source_db"></a> [replicate\_source\_db](#input\_replicate\_source\_db) | (Optional) The identifier of the source DB instance to create a read replica from. Only applies when create\_cluster is null. | `string` | `null` | no |
+| <a name="input_restore_to_point_in_time"></a> [restore\_to\_point\_in\_time](#input\_restore\_to\_point\_in\_time) | (Optional) Restore the DB instance to a point in time. Conflicts with snapshot\_identifier. Only applies when cluster\_config is null. | <pre>object({<br/>    source_db_instance_identifier            = optional(string)<br/>    restore_time                             = optional(string)<br/>    use_latest_restorable_time               = optional(bool)<br/>    source_db_instance_automated_backups_arn = optional(string)<br/>    source_dbi_resource_id                   = optional(string)<br/>  })</pre> | `null` | no |
+| <a name="input_skip_destroy"></a> [skip\_destroy](#input\_skip\_destroy) | (Optional) When true, the parameter group(s) and option group are not deleted on destroy. Useful when they may still be associated with a DB instance outside of Terraform. | `bool` | `false` | no |
+| <a name="input_skip_final_snapshot"></a> [skip\_final\_snapshot](#input\_skip\_final\_snapshot) | (Optional) Whether to skip the final snapshot when deleting the instance or cluster. | `bool` | `false` | no |
+| <a name="input_snapshot_identifier"></a> [snapshot\_identifier](#input\_snapshot\_identifier) | (Optional) The snapshot identifier to restore the instance or cluster from. Conflicts with restore\_to\_point\_in\_time. | `string` | `null` | no |
+| <a name="input_storage_throughput"></a> [storage\_throughput](#input\_storage\_throughput) | (Optional) The storage throughput in MiB/s. Only valid for storage\_type 'gp3'. Only applies when cluster\_config is null. | `number` | `null` | no |
+| <a name="input_storage_type"></a> [storage\_type](#input\_storage\_type) | (Optional) The storage type. Valid values: 'gp2', 'gp3', 'io1', 'io2', 'standard'. Only applies when create\_cluster is null. | `string` | `"gp3"` | no |
+| <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | List of subnet IDs for the DB subnet group. Required when create\_subnet\_group is true. | `list(string)` | `[]` | no |
+| <a name="input_timezone"></a> [timezone](#input\_timezone) | (Optional) The time zone of the DB instance. Required for SQL Server. Only applies when create\_cluster is null. | `string` | `null` | no |
+| <a name="input_upgrade_storage_config"></a> [upgrade\_storage\_config](#input\_upgrade\_storage\_config) | (Optional) Whether to upgrade the storage file system configuration on the read replica. Can only be used with replicate\_source\_db. Only applies when cluster\_config is null. | `bool` | `null` | no |
+| <a name="input_vpc_security_group_ids"></a> [vpc\_security\_group\_ids](#input\_vpc\_security\_group\_ids) | (Optional) List of security group IDs to associate with the instance or cluster. | `list(string)` | `[]` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_db_cluster_arn"></a> [db\_cluster\_arn](#output\_db\_cluster\_arn) | The ARN of the Aurora cluster. Null when cluster\_config is null. |
+| <a name="output_db_cluster_database_name"></a> [db\_cluster\_database\_name](#output\_db\_cluster\_database\_name) | The name of the initial database in the Aurora cluster. Null when cluster\_config is null. |
+| <a name="output_db_cluster_endpoint"></a> [db\_cluster\_endpoint](#output\_db\_cluster\_endpoint) | The write endpoint of the Aurora cluster. Null when cluster\_config is null. |
+| <a name="output_db_cluster_engine_version_actual"></a> [db\_cluster\_engine\_version\_actual](#output\_db\_cluster\_engine\_version\_actual) | The running engine version of the Aurora cluster. Null when cluster\_config is null. |
+| <a name="output_db_cluster_hosted_zone_id"></a> [db\_cluster\_hosted\_zone\_id](#output\_db\_cluster\_hosted\_zone\_id) | The Route53 hosted zone ID of the Aurora cluster endpoint. Null when cluster\_config is null. |
+| <a name="output_db_cluster_id"></a> [db\_cluster\_id](#output\_db\_cluster\_id) | The ID of the Aurora cluster. Null when cluster\_config is null. |
+| <a name="output_db_cluster_instance_endpoints"></a> [db\_cluster\_instance\_endpoints](#output\_db\_cluster\_instance\_endpoints) | Map of Aurora cluster instance identifiers to their endpoints. Empty when cluster\_config is null. |
+| <a name="output_db_cluster_master_user_secret"></a> [db\_cluster\_master\_user\_secret](#output\_db\_cluster\_master\_user\_secret) | Block with the Secrets Manager secret for the Aurora cluster master user password. Null when cluster\_config is null or manage\_master\_user\_password is false. |
+| <a name="output_db_cluster_master_username"></a> [db\_cluster\_master\_username](#output\_db\_cluster\_master\_username) | The master username for the Aurora cluster. Null when cluster\_config is null. |
+| <a name="output_db_cluster_parameter_group_arn"></a> [db\_cluster\_parameter\_group\_arn](#output\_db\_cluster\_parameter\_group\_arn) | The ARN of the Aurora cluster parameter group. Null when cluster\_config is null or parameter\_group\_family is not set. |
+| <a name="output_db_cluster_parameter_group_id"></a> [db\_cluster\_parameter\_group\_id](#output\_db\_cluster\_parameter\_group\_id) | The ID of the Aurora cluster parameter group. Null when cluster\_config is null or parameter\_group\_family is not set. |
+| <a name="output_db_cluster_port"></a> [db\_cluster\_port](#output\_db\_cluster\_port) | The port on which the Aurora cluster accepts connections. Null when cluster\_config is null. |
+| <a name="output_db_cluster_reader_endpoint"></a> [db\_cluster\_reader\_endpoint](#output\_db\_cluster\_reader\_endpoint) | The read-only endpoint of the Aurora cluster. Null when cluster\_config is null. |
+| <a name="output_db_cluster_resource_id"></a> [db\_cluster\_resource\_id](#output\_db\_cluster\_resource\_id) | The RDS cluster resource ID. Null when cluster\_config is null. |
+| <a name="output_db_instance_address"></a> [db\_instance\_address](#output\_db\_instance\_address) | The hostname of the RDS instance. Null when cluster\_config is set. |
+| <a name="output_db_instance_arn"></a> [db\_instance\_arn](#output\_db\_instance\_arn) | The ARN of the RDS instance. Null when cluster\_config is set. |
+| <a name="output_db_instance_availability_zone"></a> [db\_instance\_availability\_zone](#output\_db\_instance\_availability\_zone) | The availability zone of the RDS instance. Null when cluster\_config is set. |
+| <a name="output_db_instance_ca_cert_identifier"></a> [db\_instance\_ca\_cert\_identifier](#output\_db\_instance\_ca\_cert\_identifier) | The identifier of the CA certificate for the RDS instance. Null when cluster\_config is set. |
+| <a name="output_db_instance_endpoint"></a> [db\_instance\_endpoint](#output\_db\_instance\_endpoint) | The connection endpoint of the RDS instance (host:port). Null when cluster\_config is set. |
+| <a name="output_db_instance_engine_version_actual"></a> [db\_instance\_engine\_version\_actual](#output\_db\_instance\_engine\_version\_actual) | The running engine version of the RDS instance. Null when cluster\_config is set. |
+| <a name="output_db_instance_hosted_zone_id"></a> [db\_instance\_hosted\_zone\_id](#output\_db\_instance\_hosted\_zone\_id) | The canonical Route53 hosted zone ID of the RDS instance endpoint. Null when cluster\_config is set. |
+| <a name="output_db_instance_id"></a> [db\_instance\_id](#output\_db\_instance\_id) | The ID of the RDS instance. Null when cluster\_config is set. |
+| <a name="output_db_instance_master_user_secret"></a> [db\_instance\_master\_user\_secret](#output\_db\_instance\_master\_user\_secret) | Block with the Secrets Manager secret for the RDS instance master user password. Null when cluster\_config is set or manage\_master\_user\_password is false. |
+| <a name="output_db_instance_name"></a> [db\_instance\_name](#output\_db\_instance\_name) | The name of the initial database on the RDS instance. Null when cluster\_config is set. |
+| <a name="output_db_instance_port"></a> [db\_instance\_port](#output\_db\_instance\_port) | The port on which the RDS instance accepts connections. Null when cluster\_config is set. |
+| <a name="output_db_instance_resource_id"></a> [db\_instance\_resource\_id](#output\_db\_instance\_resource\_id) | The RDS resource ID of the instance. Null when cluster\_config is set. |
+| <a name="output_db_instance_username"></a> [db\_instance\_username](#output\_db\_instance\_username) | The master username for the RDS instance. Null when cluster\_config is set. |
+| <a name="output_db_option_group_arn"></a> [db\_option\_group\_arn](#output\_db\_option\_group\_arn) | The ARN of the DB option group. Null when cluster\_config is set or create\_option\_group is null. |
+| <a name="output_db_option_group_id"></a> [db\_option\_group\_id](#output\_db\_option\_group\_id) | The ID of the DB option group. Null when cluster\_config is set or create\_option\_group is null. |
+| <a name="output_db_parameter_group_arn"></a> [db\_parameter\_group\_arn](#output\_db\_parameter\_group\_arn) | The ARN of the DB parameter group. Null when create\_parameter\_group is null. |
+| <a name="output_db_parameter_group_id"></a> [db\_parameter\_group\_id](#output\_db\_parameter\_group\_id) | The ID of the DB parameter group. Null when create\_parameter\_group is null. |
+| <a name="output_db_subnet_group_arn"></a> [db\_subnet\_group\_arn](#output\_db\_subnet\_group\_arn) | The ARN of the DB subnet group. Null when create\_subnet\_group is false. |
+| <a name="output_db_subnet_group_id"></a> [db\_subnet\_group\_id](#output\_db\_subnet\_group\_id) | The ID of the DB subnet group. Null when create\_subnet\_group is false. |
+<!-- END_TF_DOCS -->
