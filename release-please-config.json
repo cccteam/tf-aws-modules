@@ -31,6 +31,12 @@
     },
     "ecs-cluster": {
       "package-name": "ecs-cluster"
+    },
+    "redis": {
+      "package-name": "redis"
+    },
+    "rds": {
+      "package-name": "rds"
     }
   }
 }
