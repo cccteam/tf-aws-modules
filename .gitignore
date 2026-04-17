@@ -1,6 +1,9 @@
 # Local .terraform directories
 .terraform/
 
+# Lock files are not appropriate for reusable modules
+.terraform.lock.hcl
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
