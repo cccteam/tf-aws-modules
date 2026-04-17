@@ -6,3 +6,5 @@ skip-check:
   - CKV_AWS_145 # s3-bucket: KMS encryption configured via aws_s3_bucket_server_side_encryption_configuration
   - CKV_AWS_300 # s3-bucket: abort_incomplete_multipart_upload is optional per lifecycle rule
   - CKV_AWS_65 # ecs: Container Insights enablement is caller-controlled via var.container_insights
+  - CKV2_AWS_8   # rds: native RDS backup configured via backup_retention_period and backup_window; AWS Backup plan management is the consumer's responsibility
+  - CKV_AWS_226  # rds: auto_minor_version_upgrade is configurable by the consumer and defaults to true
