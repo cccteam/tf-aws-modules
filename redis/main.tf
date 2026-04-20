@@ -1,4 +1,14 @@
 resource "aws_elasticache_replication_group" "this" {
+  lifecycle {
+    precondition {
+      condition     = var.num_node_groups <= 1 || var.automatic_failover_enabled
+      error_message = "automatic_failover_enabled must be true when num_node_groups > 1 (Redis Cluster Mode)."
+    }
+    precondition {
+      condition     = !var.multi_az_enabled || var.automatic_failover_enabled
+      error_message = "automatic_failover_enabled must be true when multi_az_enabled is true."
+    }
+  }
   replication_group_id        = var.name
   description                 = var.description
   engine                      = var.engine
