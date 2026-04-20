@@ -35,7 +35,7 @@ output "db_cluster_instance_endpoints" {
 
 output "db_cluster_master_user_secret" {
   description = "Block with the Secrets Manager secret for the Aurora cluster master user password. Null when cluster_config is null or manage_master_user_password is false."
-  value       = var.cluster_config != null ? aws_rds_cluster.this[0].master_user_secret : null
+  value       = var.cluster_config != null && var.manage_master_user_password == true ? aws_rds_cluster.this[0].master_user_secret : null
 }
 
 output "db_cluster_master_username" {
@@ -111,7 +111,7 @@ output "db_instance_id" {
 
 output "db_instance_master_user_secret" {
   description = "Block with the Secrets Manager secret for the RDS instance master user password. Null when cluster_config is set or manage_master_user_password is false."
-  value       = var.cluster_config == null ? aws_db_instance.this[0].master_user_secret : null
+  value       = var.cluster_config == null && var.manage_master_user_password == true ? aws_db_instance.this[0].master_user_secret : null
 }
 
 output "db_instance_name" {
