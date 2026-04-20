@@ -87,6 +87,10 @@ resource "aws_db_instance" "this" {
       condition     = var.allocated_storage != null
       error_message = "allocated_storage is required when cluster_config is null (standalone instance)."
     }
+    precondition {
+      condition     = var.create_subnet_group || var.db_subnet_group_name != null
+      error_message = "db_subnet_group_name is required when create_subnet_group is false."
+    }
   }
   identifier                            = var.identifier
   tags                                  = { Name = var.identifier }
@@ -184,6 +188,10 @@ resource "aws_rds_cluster" "this" {
     precondition {
       condition     = length(var.cluster_config.instances) > 0
       error_message = "cluster_config.instances must contain at least one instance."
+    }
+    precondition {
+      condition     = var.create_subnet_group || var.db_subnet_group_name != null
+      error_message = "db_subnet_group_name is required when create_subnet_group is false."
     }
   }
   cluster_identifier                    = var.identifier
