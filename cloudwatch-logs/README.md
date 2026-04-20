@@ -55,5 +55,5 @@ No modules.
 | <a name="output_resource_policy_id"></a> [resource\_policy\_id](#output\_resource\_policy\_id) | The ID of the resource policy (policy name for account-scoped, log group ARN for resource-scoped). Null when resource\_policy is not configured. |
 | <a name="output_resource_policy_revision_id"></a> [resource\_policy\_revision\_id](#output\_resource\_policy\_revision\_id) | The revision ID of the resource policy. Only populated for resource-scoped policies. Null when resource\_policy is not configured. |
 | <a name="output_resource_policy_scope"></a> [resource\_policy\_scope](#output\_resource\_policy\_scope) | The scope of the resource policy: ACCOUNT or RESOURCE. Null when resource\_policy is not configured. |
-| <a name="output_subscription_filter_id"></a> [subscription\_filter\_id](#output\_subscription\_filter\_id) | The name of the subscription filter. Null when subscription\_filter is not configured. |
+| <a name="output_subscription_filter_name"></a> [subscription\_filter\_name](#output\_subscription\_filter\_name) | The name of the subscription filter. Null when subscription\_filter is not configured. |
 <!-- END_TF_DOCS -->

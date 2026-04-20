@@ -33,7 +33,7 @@ output "resource_policy_scope" {
   value       = var.resource_policy != null ? aws_cloudwatch_log_resource_policy.this[0].policy_scope : null
 }
 
-output "subscription_filter_id" {
+output "subscription_filter_name" {
   description = "The name of the subscription filter. Null when subscription_filter is not configured."
-  value       = var.subscription_filter != null ? aws_cloudwatch_log_subscription_filter.this[0].id : null
+  value       = var.subscription_filter != null ? aws_cloudwatch_log_subscription_filter.this[0].name : null
 }
