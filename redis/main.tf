@@ -40,6 +40,14 @@ resource "aws_elasticache_replication_group" "this" {
       condition     = var.global_replication_group_id == null || var.replicas_per_node_group == 1
       error_message = "replicas_per_node_group cannot be changed when global_replication_group_id is set; it is controlled by the global replication group."
     }
+    precondition {
+      condition     = var.global_replication_group_id != null || var.num_cache_clusters == null
+      error_message = "num_cache_clusters is only valid when global_replication_group_id is set."
+    }
+    precondition {
+      condition     = var.num_cache_clusters == null || (!var.automatic_failover_enabled && !var.multi_az_enabled) || var.num_cache_clusters >= 2
+      error_message = "num_cache_clusters must be at least 2 when automatic_failover_enabled or multi_az_enabled is true."
+    }
   }
   replication_group_id        = var.name
   description                 = var.description
