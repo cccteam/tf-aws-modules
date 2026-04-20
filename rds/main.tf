@@ -149,6 +149,12 @@ resource "aws_db_instance" "this" {
       enabled = blue_green_update.value.enabled
     }
   }
+  lifecycle {
+    precondition {
+      condition     = !(var.master_password != null && var.manage_master_user_password == true)
+      error_message = "master_password and manage_master_user_password are mutually exclusive; set only one."
+    }
+  }
 }
 
 resource "aws_rds_cluster" "this" {
@@ -209,6 +215,12 @@ resource "aws_rds_cluster" "this" {
       restore_type               = restore_to_point_in_time.value.restore_type
       restore_to_time            = restore_to_point_in_time.value.restore_to_time
       use_latest_restorable_time = restore_to_point_in_time.value.use_latest_restorable_time
+    }
+  }
+  lifecycle {
+    precondition {
+      condition     = !(var.master_password != null && var.manage_master_user_password == true)
+      error_message = "master_password and manage_master_user_password are mutually exclusive; set only one."
     }
   }
 }
