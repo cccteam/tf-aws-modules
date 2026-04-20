@@ -481,6 +481,10 @@ variable "subnet_ids" {
   description = "List of subnet IDs for the DB subnet group. Required when create_subnet_group is true."
   type        = list(string)
   default     = []
+  validation {
+    condition     = !var.create_subnet_group || length(var.subnet_ids) > 0
+    error_message = "subnet_ids must contain at least one subnet ID when create_subnet_group is true."
+  }
 }
 
 variable "timezone" {
