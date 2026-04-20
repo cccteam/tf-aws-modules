@@ -1,5 +1,5 @@
 output "aliases" {
-  description = "Map of alias names to their ARNs. Empty when no aliases are configured."
+  description = "Map of alias logical keys from the `aliases` input map to their ARNs. Empty when no aliases are configured."
   value       = { for k, v in aws_kms_alias.this : k => v.arn }
 }
 

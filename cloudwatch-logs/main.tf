@@ -65,6 +65,6 @@ resource "aws_cloudwatch_query_definition" "this" {
   for_each        = { for q in var.query_definitions : q.name => q }
   name            = each.value.name
   query_string    = each.value.query_string
-  log_group_names = each.value.log_group_names
+  log_group_names = each.value.log_group_names != null ? each.value.log_group_names : [aws_cloudwatch_log_group.this.name]
   region          = var.region
 }

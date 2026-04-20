@@ -91,6 +91,18 @@ resource "aws_db_instance" "this" {
       condition     = var.create_subnet_group || var.db_subnet_group_name != null
       error_message = "db_subnet_group_name is required when create_subnet_group is false."
     }
+    precondition {
+      condition     = !(var.create_parameter_group != null && var.db_parameter_group_name != null)
+      error_message = "create_parameter_group and db_parameter_group_name are mutually exclusive; set only one."
+    }
+    precondition {
+      condition     = !(var.create_option_group != null && var.option_group_name != null)
+      error_message = "create_option_group and option_group_name are mutually exclusive; set only one."
+    }
+    precondition {
+      condition     = var.enhanced_monitoring_interval == 0 || var.monitoring_role_arn != null
+      error_message = "monitoring_role_arn is required when enhanced_monitoring_interval > 0."
+    }
   }
   identifier                            = var.identifier
   tags                                  = { Name = var.identifier }
@@ -254,7 +266,13 @@ resource "aws_rds_cluster" "this" {
 }
 
 resource "aws_rds_cluster_instance" "this" {
-  for_each                              = var.cluster_config != null ? var.cluster_config.instances : {}
+  for_each = var.cluster_config != null ? var.cluster_config.instances : {}
+  lifecycle {
+    precondition {
+      condition     = var.enhanced_monitoring_interval == 0 || var.monitoring_role_arn != null
+      error_message = "monitoring_role_arn is required when enhanced_monitoring_interval > 0."
+    }
+  }
   identifier                            = "${var.identifier}-${each.key}"
   cluster_identifier                    = aws_rds_cluster.this[0].id
   tags                                  = { Name = "${var.identifier}-${each.key}" }

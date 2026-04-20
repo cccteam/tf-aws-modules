@@ -30,7 +30,7 @@ output "db_cluster_id" {
 
 output "db_cluster_instance_endpoints" {
   description = "Map of Aurora cluster instance identifiers to their endpoints. Empty when cluster_config is null."
-  value       = { for k, v in aws_rds_cluster_instance.this : k => v.endpoint }
+  value       = { for _, v in aws_rds_cluster_instance.this : v.identifier => v.endpoint }
 }
 
 output "db_cluster_master_user_secret" {
