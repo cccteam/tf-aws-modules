@@ -24,6 +24,22 @@ resource "aws_elasticache_replication_group" "this" {
       condition     = !(var.create_global_replication_group != null && var.global_replication_group_id != null)
       error_message = "create_global_replication_group and global_replication_group_id are mutually exclusive; set only one."
     }
+    precondition {
+      condition     = var.global_replication_group_id != null || var.node_type != null
+      error_message = "node_type is required when global_replication_group_id is not set."
+    }
+    precondition {
+      condition     = var.global_replication_group_id == null || var.node_type == null
+      error_message = "node_type must not be set when global_replication_group_id is set."
+    }
+    precondition {
+      condition     = var.global_replication_group_id == null || var.num_node_groups == 1
+      error_message = "num_node_groups cannot be changed when global_replication_group_id is set; it is controlled by the global replication group."
+    }
+    precondition {
+      condition     = var.global_replication_group_id == null || var.replicas_per_node_group == 1
+      error_message = "replicas_per_node_group cannot be changed when global_replication_group_id is set; it is controlled by the global replication group."
+    }
   }
   replication_group_id        = var.name
   description                 = var.description
