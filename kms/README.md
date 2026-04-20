@@ -49,7 +49,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_aliases"></a> [aliases](#output\_aliases) | Map of alias names to their ARNs. Empty when no aliases are configured. |
+| <a name="output_aliases"></a> [aliases](#output\_aliases) | Map of alias logical keys from the `aliases` input map to their ARNs. Empty when no aliases are configured. |
 | <a name="output_arn"></a> [arn](#output\_arn) | ARN of the KMS key. |
 | <a name="output_id"></a> [id](#output\_id) | Globally unique identifier (key ID) of the KMS key. |
 | <a name="output_key_rotation_enabled"></a> [key\_rotation\_enabled](#output\_key\_rotation\_enabled) | Whether automatic key rotation is enabled for the KMS key. |
