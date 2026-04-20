@@ -1,4 +1,10 @@
 resource "aws_cloudwatch_log_group" "this" {
+  lifecycle {
+    precondition {
+      condition     = !(var.name != null && var.name_prefix != null)
+      error_message = "name and name_prefix are mutually exclusive; set only one."
+    }
+  }
   region                      = var.region
   name                        = var.name
   name_prefix                 = var.name_prefix
