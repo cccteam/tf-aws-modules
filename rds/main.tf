@@ -76,6 +76,10 @@ resource "aws_db_instance" "this" {
       error_message = "master_password and manage_master_user_password are mutually exclusive; set only one."
     }
     precondition {
+      condition     = var.manage_master_user_password == true || var.master_password != null
+      error_message = "At least one of manage_master_user_password or master_password must be set."
+    }
+    precondition {
       condition     = var.instance_class != null
       error_message = "instance_class is required when cluster_config is null (standalone instance)."
     }
@@ -172,6 +176,10 @@ resource "aws_rds_cluster" "this" {
     precondition {
       condition     = !(var.master_password != null && var.manage_master_user_password == true)
       error_message = "master_password and manage_master_user_password are mutually exclusive; set only one."
+    }
+    precondition {
+      condition     = var.manage_master_user_password == true || var.master_password != null
+      error_message = "At least one of manage_master_user_password or master_password must be set."
     }
     precondition {
       condition     = length(var.cluster_config.instances) > 0
