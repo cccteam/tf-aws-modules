@@ -24,7 +24,13 @@ resource "aws_kms_alias" "this" {
 }
 
 resource "aws_kms_replica_key" "this" {
-  for_each                           = var.replica_keys
+  for_each = var.replica_keys
+  lifecycle {
+    precondition {
+      condition     = var.multi_region == true
+      error_message = "replica_keys can only be set when multi_region is true."
+    }
+  }
   region                             = each.value.region
   primary_key_arn                    = aws_kms_key.this.arn
   description                        = each.value.description
