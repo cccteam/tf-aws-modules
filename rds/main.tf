@@ -70,6 +70,16 @@ resource "aws_db_option_group" "this" {
 resource "aws_db_instance" "this" {
   depends_on                            = [aws_db_subnet_group.this]
   count                                 = var.cluster_config == null ? 1 : 0
+  lifecycle {
+    precondition {
+      condition     = !(var.master_password != null && var.manage_master_user_password == true)
+      error_message = "master_password and manage_master_user_password are mutually exclusive; set only one."
+    }
+    precondition {
+      condition     = var.instance_class != null
+      error_message = "instance_class is required when cluster_config is null (standalone instance)."
+    }
+  }
   identifier                            = var.identifier
   tags                                  = { Name = var.identifier }
   region                                = var.region
@@ -149,17 +159,21 @@ resource "aws_db_instance" "this" {
       enabled = blue_green_update.value.enabled
     }
   }
-  lifecycle {
-    precondition {
-      condition     = !(var.master_password != null && var.manage_master_user_password == true)
-      error_message = "master_password and manage_master_user_password are mutually exclusive; set only one."
-    }
-  }
 }
 
 resource "aws_rds_cluster" "this" {
   depends_on                            = [aws_db_subnet_group.this]
   count                                 = var.cluster_config != null ? 1 : 0
+  lifecycle {
+    precondition {
+      condition     = !(var.master_password != null && var.manage_master_user_password == true)
+      error_message = "master_password and manage_master_user_password are mutually exclusive; set only one."
+    }
+    precondition {
+      condition     = length(var.cluster_config.instances) > 0
+      error_message = "cluster_config.instances must contain at least one instance."
+    }
+  }
   cluster_identifier                    = var.identifier
   tags                                  = { Name = var.identifier }
   region                                = var.region
@@ -215,12 +229,6 @@ resource "aws_rds_cluster" "this" {
       restore_type               = restore_to_point_in_time.value.restore_type
       restore_to_time            = restore_to_point_in_time.value.restore_to_time
       use_latest_restorable_time = restore_to_point_in_time.value.use_latest_restorable_time
-    }
-  }
-  lifecycle {
-    precondition {
-      condition     = !(var.master_password != null && var.manage_master_user_password == true)
-      error_message = "master_password and manage_master_user_password are mutually exclusive; set only one."
     }
   }
 }
