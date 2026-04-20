@@ -79,6 +79,10 @@ resource "aws_db_instance" "this" {
       condition     = var.instance_class != null
       error_message = "instance_class is required when cluster_config is null (standalone instance)."
     }
+    precondition {
+      condition     = var.allocated_storage != null
+      error_message = "allocated_storage is required when cluster_config is null (standalone instance)."
+    }
   }
   identifier                            = var.identifier
   tags                                  = { Name = var.identifier }
