@@ -1,5 +1,11 @@
 resource "aws_db_subnet_group" "this" {
-  count       = var.create_subnet_group ? 1 : 0
+  count = var.create_subnet_group ? 1 : 0
+  lifecycle {
+    precondition {
+      condition     = length(var.subnet_ids) > 0
+      error_message = "subnet_ids must contain at least one subnet ID when create_subnet_group is true."
+    }
+  }
   name        = var.identifier
   subnet_ids  = var.subnet_ids
   description = "Subnet group for ${var.identifier}"
