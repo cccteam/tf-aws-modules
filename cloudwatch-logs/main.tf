@@ -10,7 +10,7 @@ resource "aws_cloudwatch_log_group" "this" {
   name_prefix                 = var.name_prefix
   skip_destroy                = var.skip_destroy
   deletion_protection_enabled = var.deletion_protection_enabled
-  retention_in_days           = var.retention_in_days
+  retention_in_days           = var.log_group_class == "DELIVERY" ? null : var.retention_in_days
   kms_key_id                  = var.kms_key_id
   log_group_class             = var.log_group_class
   tags                        = try({ Name = coalesce(var.name, var.name_prefix) }, {})
