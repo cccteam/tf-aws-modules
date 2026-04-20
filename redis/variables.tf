@@ -27,7 +27,7 @@ variable "at_rest_encryption_enabled" {
 }
 
 variable "auth_token" {
-  description = "(Optional) Password used to access a password-protected server. Must be 16–128 printable ASCII characters. Only valid when transit_encryption_enabled is true."
+  description = "(Optional) Password used to access a password-protected server. Must be 16-128 printable ASCII characters. Only valid when transit_encryption_enabled is true."
   type        = string
   default     = null
   sensitive   = true
@@ -201,11 +201,11 @@ variable "network_type" {
 }
 
 variable "name" {
-  description = "The replication group identifier. Must be 1–40 characters, start with a lowercase letter, and contain only lowercase alphanumeric characters and hyphens."
+  description = "The replication group identifier. Must be 1-40 characters, start with a lowercase letter, and contain only lowercase alphanumeric characters and hyphens."
   type        = string
   validation {
     condition     = can(regex("^[a-z][a-z0-9-]{0,39}$", var.name))
-    error_message = "name must be 1–40 characters, start with a lowercase letter, and contain only lowercase alphanumeric characters and hyphens."
+    error_message = "name must be 1-40 characters, start with a lowercase letter, and contain only lowercase alphanumeric characters and hyphens."
   }
 }
 
@@ -256,7 +256,7 @@ variable "preferred_cache_cluster_azs" {
 }
 
 variable "replicas_per_node_group" {
-  description = "(Optional) Number of replica nodes in each node group. Valid values: 0–5. Defaults to 1."
+  description = "(Optional) Number of replica nodes in each node group. Valid values: 0-5. Defaults to 1."
   type        = number
   default     = 1
   validation {
