@@ -33,7 +33,7 @@ resource "aws_rds_cluster_parameter_group" "this" {
   tags        = { Name = var.identifier }
   region      = var.region
   dynamic "parameter" {
-    for_each = try(var.cluster_config.parameters, [])
+    for_each = var.cluster_config.parameters
     content {
       name         = parameter.value.name
       value        = parameter.value.value
