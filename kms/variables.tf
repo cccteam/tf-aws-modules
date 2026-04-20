@@ -119,7 +119,7 @@ variable "replica_keys" {
   default = {}
   validation {
     condition = alltrue([
-      for k, v in var.replica_keys : v.deletion_window_in_days >= 7 && v.deletion_window_in_days <= 30
+      for k, v in var.replica_keys : v.deletion_window_in_days == null || (v.deletion_window_in_days >= 7 && v.deletion_window_in_days <= 30)
     ])
     error_message = "Each replica key's deletion_window_in_days must be between 7 and 30."
   }

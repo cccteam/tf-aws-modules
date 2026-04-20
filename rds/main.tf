@@ -98,7 +98,7 @@ resource "aws_db_instance" "this" {
   deletion_protection                   = var.deletion_protection
   license_model                         = var.license_model
   skip_final_snapshot                   = var.skip_final_snapshot
-  final_snapshot_identifier             = var.skip_final_snapshot ? null : var.final_snapshot_identifier
+  final_snapshot_identifier             = var.skip_final_snapshot ? null : coalesce(var.final_snapshot_identifier, var.identifier)
   backup_retention_period               = var.backup_retention_period
   backup_window                         = var.backup_window
   maintenance_window                    = var.maintenance_window
@@ -172,7 +172,7 @@ resource "aws_rds_cluster" "this" {
   vpc_security_group_ids                = var.vpc_security_group_ids
   deletion_protection                   = var.deletion_protection
   skip_final_snapshot                   = var.skip_final_snapshot
-  final_snapshot_identifier             = var.skip_final_snapshot ? null : var.final_snapshot_identifier
+  final_snapshot_identifier             = var.skip_final_snapshot ? null : coalesce(var.final_snapshot_identifier, var.identifier)
   backup_retention_period               = var.backup_retention_period
   preferred_backup_window               = var.backup_window
   preferred_maintenance_window          = var.maintenance_window

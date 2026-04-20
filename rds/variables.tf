@@ -1,5 +1,5 @@
 variable "allocated_storage" {
-  description = "(Required when create_cluster is null) The allocated storage size in gibibytes."
+  description = "(Required when cluster_config is null) The allocated storage size in gibibytes."
   type        = number
   default     = null
 }
@@ -23,7 +23,7 @@ variable "auto_minor_version_upgrade" {
 }
 
 variable "availability_zone" {
-  description = "(Optional) The AZ in which to create the instance. Only applies when create_cluster is null."
+  description = "(Optional) The AZ in which to create the instance. Only applies when cluster_config is null."
   type        = string
   default     = null
 }
@@ -59,7 +59,7 @@ variable "ca_cert_identifier" {
 }
 
 variable "character_set_name" {
-  description = "(Optional) The character set name for Oracle and SQL Server engines. Only applies when create_cluster is null."
+  description = "(Optional) The character set name for Oracle and SQL Server engines. Only applies when cluster_config is null."
   type        = string
   default     = null
 }
@@ -116,7 +116,7 @@ variable "copy_tags_to_snapshot" {
 }
 
 variable "create_option_group" {
-  description = "(Optional) When set, creates an aws_db_option_group. Only applies when create_cluster is null. Primarily used for MySQL and Oracle engines."
+  description = "(Optional) When set, creates an aws_db_option_group. Only applies when cluster_config is null. Primarily used for MySQL and Oracle engines."
   type = object({
     engine_name          = string
     major_engine_version = string
@@ -247,7 +247,7 @@ variable "engine" {
 }
 
 variable "engine_lifecycle_support" {
-  description = "(Optional) The life cycle type for the DB instance. Valid values: 'open-source-rds-extended-support', 'open-source-rds-extended-support-disabled'. Only applies when create_cluster is null."
+  description = "(Optional) The life cycle type for the DB instance. Valid values: 'open-source-rds-extended-support', 'open-source-rds-extended-support-disabled'. Only applies when cluster_config is null."
   type        = string
   default     = null
 }
@@ -286,13 +286,13 @@ variable "identifier" {
 }
 
 variable "instance_class" {
-  description = "(Required when create_cluster is null) The instance class. e.g., 'db.t3.micro'. Not used for Aurora clusters (use create_cluster.default_instance_class instead)."
+  description = "(Required when cluster_config is null) The instance class. e.g., 'db.t3.micro'. Not used for Aurora clusters (use cluster_config.default_instance_class instead)."
   type        = string
   default     = null
 }
 
 variable "iops" {
-  description = "(Optional) The amount of provisioned IOPS. Required for 'io1' and 'io2', optional for 'gp3'. Only applies when create_cluster is null."
+  description = "(Optional) The amount of provisioned IOPS. Required for 'io1' and 'io2', optional for 'gp3'. Only applies when cluster_config is null."
   type        = number
   default     = null
 }
@@ -304,7 +304,7 @@ variable "kms_key_id" {
 }
 
 variable "license_model" {
-  description = "(Optional) The license model. Required for certain engines (e.g., 'license-included' for Oracle or SQL Server). Only applies when create_cluster is null."
+  description = "(Optional) The license model. Required for certain engines (e.g., 'license-included' for Oracle or SQL Server). Only applies when cluster_config is null."
   type        = string
   default     = null
 }
@@ -340,7 +340,7 @@ variable "master_username" {
 }
 
 variable "max_allocated_storage" {
-  description = "(Optional) When set, enables storage autoscaling up to this value in gibibytes. Only applies when create_cluster is null."
+  description = "(Optional) When set, enables storage autoscaling up to this value in gibibytes. Only applies when cluster_config is null."
   type        = number
   default     = null
 }
@@ -352,13 +352,13 @@ variable "monitoring_role_arn" {
 }
 
 variable "multi_az" {
-  description = "(Optional) Whether to enable Multi-AZ deployment. Only applies when create_cluster is null."
+  description = "(Optional) Whether to enable Multi-AZ deployment. Only applies when cluster_config is null."
   type        = bool
   default     = false
 }
 
 variable "nchar_character_set_name" {
-  description = "(Optional) The national character set name for Oracle engines. Only applies when create_cluster is null."
+  description = "(Optional) The national character set name for Oracle engines. Only applies when cluster_config is null."
   type        = string
   default     = null
 }
@@ -374,7 +374,7 @@ variable "network_type" {
 }
 
 variable "option_group_name" {
-  description = "(Optional) Name of an existing option group. Used when create_option_group is null and create_cluster is null."
+  description = "(Optional) Name of an existing option group. Used when create_option_group is null and cluster_config is null."
   type        = string
   default     = null
 }
@@ -426,7 +426,7 @@ variable "replica_mode" {
 }
 
 variable "replicate_source_db" {
-  description = "(Optional) The identifier of the source DB instance to create a read replica from. Only applies when create_cluster is null."
+  description = "(Optional) The identifier of the source DB instance to create a read replica from. Only applies when cluster_config is null."
   type        = string
   default     = null
 }
@@ -468,7 +468,7 @@ variable "storage_throughput" {
 }
 
 variable "storage_type" {
-  description = "(Optional) The storage type. Valid values: 'gp2', 'gp3', 'io1', 'io2', 'standard'. Only applies when create_cluster is null."
+  description = "(Optional) The storage type. Valid values: 'gp2', 'gp3', 'io1', 'io2', 'standard'. Only applies when cluster_config is null."
   type        = string
   default     = "gp3"
   validation {
@@ -484,7 +484,7 @@ variable "subnet_ids" {
 }
 
 variable "timezone" {
-  description = "(Optional) The time zone of the DB instance. Required for SQL Server. Only applies when create_cluster is null."
+  description = "(Optional) The time zone of the DB instance. Required for SQL Server. Only applies when cluster_config is null."
   type        = string
   default     = null
 }
