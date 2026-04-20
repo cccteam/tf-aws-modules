@@ -1,5 +1,9 @@
 {
   "s3-bucket": "0.1.0",
   "org-policy": "0.1.0",
-  "ecs-cluster": "0.1.0"
+  "ecs-cluster": "0.1.0",
+  "redis": "0.0.0",
+  "rds": "0.0.0",
+  "kms": "0.0.0",
+  "cloudwatch-logs": "0.0.0"
 }

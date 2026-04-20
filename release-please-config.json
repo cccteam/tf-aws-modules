@@ -37,6 +37,12 @@
     },
     "rds": {
       "package-name": "rds"
+    },
+    "kms": {
+      "package-name": "kms"
+    },
+    "cloudwatch-logs": {
+      "package-name": "cloudwatch-logs"
     }
   }
 }
