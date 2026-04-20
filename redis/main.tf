@@ -8,6 +8,10 @@ resource "aws_elasticache_replication_group" "this" {
       condition     = !var.multi_az_enabled || var.automatic_failover_enabled
       error_message = "automatic_failover_enabled must be true when multi_az_enabled is true."
     }
+    precondition {
+      condition     = var.auth_token == null || var.transit_encryption_enabled
+      error_message = "auth_token can only be set when transit_encryption_enabled is true."
+    }
   }
   replication_group_id        = var.name
   description                 = var.description
