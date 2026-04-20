@@ -12,6 +12,18 @@ resource "aws_elasticache_replication_group" "this" {
       condition     = var.auth_token == null || var.transit_encryption_enabled
       error_message = "auth_token can only be set when transit_encryption_enabled is true."
     }
+    precondition {
+      condition     = !(var.create_parameter_group != null && var.parameter_group_name != null)
+      error_message = "create_parameter_group and parameter_group_name are mutually exclusive; set only one."
+    }
+    precondition {
+      condition     = !(var.create_subnet_group != null && var.subnet_group_name != null)
+      error_message = "create_subnet_group and subnet_group_name are mutually exclusive; set only one."
+    }
+    precondition {
+      condition     = !(var.create_global_replication_group != null && var.global_replication_group_id != null)
+      error_message = "create_global_replication_group and global_replication_group_id are mutually exclusive; set only one."
+    }
   }
   replication_group_id        = var.name
   description                 = var.description
