@@ -68,8 +68,8 @@ resource "aws_db_option_group" "this" {
 }
 
 resource "aws_db_instance" "this" {
-  depends_on                            = [aws_db_subnet_group.this]
-  count                                 = var.cluster_config == null ? 1 : 0
+  depends_on = [aws_db_subnet_group.this]
+  count      = var.cluster_config == null ? 1 : 0
   lifecycle {
     precondition {
       condition     = !(var.master_password != null && var.manage_master_user_password == true)
@@ -162,8 +162,8 @@ resource "aws_db_instance" "this" {
 }
 
 resource "aws_rds_cluster" "this" {
-  depends_on                            = [aws_db_subnet_group.this]
-  count                                 = var.cluster_config != null ? 1 : 0
+  depends_on = [aws_db_subnet_group.this]
+  count      = var.cluster_config != null ? 1 : 0
   lifecycle {
     precondition {
       condition     = !(var.master_password != null && var.manage_master_user_password == true)
