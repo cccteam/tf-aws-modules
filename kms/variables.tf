@@ -32,12 +32,12 @@ variable "custom_key_store_id" {
 }
 
 variable "customer_master_key_spec" {
-  description = "(Optional) Specifies whether the key contains a symmetric key, an asymmetric key pair, or an HMAC key. Valid values: 'SYMMETRIC_DEFAULT', 'RSA_2048', 'RSA_3072', 'RSA_4096', 'HMAC_224', 'HMAC_256', 'HMAC_384', 'HMAC_512', 'ECC_NIST_P256', 'ECC_NIST_P384', 'ECC_NIST_P521', 'ECC_SECG_P256K1', 'ECC_NIST_EDWARDS25519', 'ML_DSA_44', 'ML_DSA_65', 'ML_DSA_87', 'SM2'. Defaults to 'SYMMETRIC_DEFAULT'."
+  description = "(Optional) Specifies whether the key contains a symmetric key, an asymmetric key pair, or an HMAC key. Valid values: 'SYMMETRIC_DEFAULT', 'RSA_2048', 'RSA_3072', 'RSA_4096', 'HMAC_224', 'HMAC_256', 'HMAC_384', 'HMAC_512', 'ECC_NIST_P256', 'ECC_NIST_P384', 'ECC_NIST_P521', 'ECC_SECG_P256K1', 'ECC_NIST_ED25519', 'ML_DSA_44', 'ML_DSA_65', 'ML_DSA_87', 'SM2'. Defaults to 'SYMMETRIC_DEFAULT'."
   type        = string
   default     = "SYMMETRIC_DEFAULT"
   validation {
-    condition     = contains(["SYMMETRIC_DEFAULT", "RSA_2048", "RSA_3072", "RSA_4096", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "ECC_NIST_EDWARDS25519", "ML_DSA_44", "ML_DSA_65", "ML_DSA_87", "SM2"], var.customer_master_key_spec)
-    error_message = "customer_master_key_spec must be one of: 'SYMMETRIC_DEFAULT', 'RSA_2048', 'RSA_3072', 'RSA_4096', 'HMAC_224', 'HMAC_256', 'HMAC_384', 'HMAC_512', 'ECC_NIST_P256', 'ECC_NIST_P384', 'ECC_NIST_P521', 'ECC_SECG_P256K1', 'ECC_NIST_EDWARDS25519', 'ML_DSA_44', 'ML_DSA_65', 'ML_DSA_87', 'SM2'."
+    condition     = contains(["SYMMETRIC_DEFAULT", "RSA_2048", "RSA_3072", "RSA_4096", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "ECC_NIST_ED25519", "ML_DSA_44", "ML_DSA_65", "ML_DSA_87", "SM2"], var.customer_master_key_spec)
+    error_message = "customer_master_key_spec must be one of: 'SYMMETRIC_DEFAULT', 'RSA_2048', 'RSA_3072', 'RSA_4096', 'HMAC_224', 'HMAC_256', 'HMAC_384', 'HMAC_512', 'ECC_NIST_P256', 'ECC_NIST_P384', 'ECC_NIST_P521', 'ECC_SECG_P256K1', 'ECC_NIST_ED25519', 'ML_DSA_44', 'ML_DSA_65', 'ML_DSA_87', 'SM2'."
   }
 }
 
