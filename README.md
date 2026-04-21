@@ -6,8 +6,13 @@ A collection of reusable OpenTofu modules for AWS infrastructure, built with sec
 
 | Module | Description |
 |--------|-------------|
-| [s3-bucket](/s3-bucket) | S3 bucket with encryption, versioning, lifecycle rules, replication, notifications, and all S3 sub-resources |
+| [cloudwatch-logs](/cloudwatch-logs) | CloudWatch log group with KMS encryption, retention, and data protection policy support |
+| [ecs-cluster](/ecs-cluster) | ECS cluster with capacity providers, Container Insights, Service Connect, and service discovery namespace |
+| [kms](/kms) | KMS key with aliases, multi-region replica keys, and external key store support |
 | [org-policy](/org-policy) | AWS Organizations policy (SCP, Tag, Backup, AI Opt-Out, Chatbot) with optional target attachments |
+| [rds](/rds) | RDS instance or Aurora cluster with parameter groups, subnet groups, and option groups |
+| [redis](/redis) | ElastiCache Redis replication group with cluster mode, subnet groups, and parameter groups |
+| [s3-bucket](/s3-bucket) | S3 bucket with encryption, versioning, lifecycle rules, replication, notifications, and all S3 sub-resources |
 
 ## Usage
 

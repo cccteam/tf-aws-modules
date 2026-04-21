@@ -31,6 +31,18 @@
     },
     "ecs-cluster": {
       "package-name": "ecs-cluster"
+    },
+    "redis": {
+      "package-name": "redis"
+    },
+    "rds": {
+      "package-name": "rds"
+    },
+    "kms": {
+      "package-name": "kms"
+    },
+    "cloudwatch-logs": {
+      "package-name": "cloudwatch-logs"
     }
   }
 }
