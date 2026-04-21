@@ -1,5 +1,9 @@
 # CCC Terraform AWS Modules
 
+[![CI](https://github.com/cccteam/tf-aws-modules/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/cccteam/tf-aws-modules/actions/workflows/ci.yml)
+[![Infrastructure Checks](https://github.com/cccteam/tf-aws-modules/actions/workflows/infrastructure-checks.yml/badge.svg?branch=master)](https://github.com/cccteam/tf-aws-modules/actions/workflows/infrastructure-checks.yml)
+[![Secret Scanning](https://github.com/cccteam/tf-aws-modules/actions/workflows/secret-scanning.yml/badge.svg?branch=master)](https://github.com/cccteam/tf-aws-modules/actions/workflows/secret-scanning.yml)
+
 A collection of reusable OpenTofu modules for AWS infrastructure, built with security best practices, consistent style, and independent versioning.
 
 ## Modules
