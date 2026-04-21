@@ -211,6 +211,10 @@ resource "aws_rds_cluster" "this" {
       condition     = var.create_subnet_group || var.db_subnet_group_name != null
       error_message = "db_subnet_group_name is required when create_subnet_group is false."
     }
+    precondition {
+      condition     = contains(["aurora-mysql", "aurora-postgresql"], var.engine)
+      error_message = "cluster_config requires an Aurora engine. engine must be 'aurora-mysql' or 'aurora-postgresql'."
+    }
   }
   cluster_identifier                    = var.identifier
   tags                                  = { Name = var.identifier }
