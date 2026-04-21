@@ -13,7 +13,7 @@ variable "aliases" {
   }
   validation {
     condition = alltrue([
-      for k, v in var.aliases : v.name != null ? startswith(v.name, "alias/") : startswith(v.name_prefix, "alias/")
+      for k, v in var.aliases : v.name != null ? startswith(v.name, "alias/") : (v.name_prefix != null && startswith(v.name_prefix, "alias/"))
     ])
     error_message = "Each alias 'name' or 'name_prefix' must begin with 'alias/'."
   }
@@ -134,7 +134,7 @@ variable "replica_keys" {
   validation {
     condition = alltrue(flatten([
       for k, v in var.replica_keys : [
-        for ak, av in v.aliases : av.name != null ? startswith(av.name, "alias/") : startswith(av.name_prefix, "alias/")
+        for ak, av in v.aliases : av.name != null ? startswith(av.name, "alias/") : (av.name_prefix != null && startswith(av.name_prefix, "alias/"))
       ]
     ]))
     error_message = "Each replica key alias 'name' or 'name_prefix' must begin with 'alias/'."
