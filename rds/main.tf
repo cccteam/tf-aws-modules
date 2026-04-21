@@ -109,6 +109,10 @@ resource "aws_db_instance" "this" {
       condition     = var.enhanced_monitoring_interval == 0 || var.monitoring_role_arn != null
       error_message = "monitoring_role_arn is required when enhanced_monitoring_interval > 0."
     }
+    precondition {
+      condition     = !contains(["aurora-mysql", "aurora-postgresql"], var.engine)
+      error_message = "engine must not be an Aurora engine when cluster_config is null. Use 'aurora-mysql' or 'aurora-postgresql' only with cluster_config."
+    }
   }
   identifier                            = var.identifier
   tags                                  = { Name = var.identifier }
