@@ -10,7 +10,7 @@ permissions: {}
 
 jobs:
   release-please:
-    uses: cccteam/github-workflows/.github/workflows/release-please.yml@4987befcc33b8c6a81741990bb9818d55e7446fe # v6.0.0
+    uses: cccteam/github-workflows/.github/workflows/release-please.yml@5be491dfaa55f4e80e42bbef5dbe7ca7027f612f # v6.1.1
     permissions:
       contents: write
       pull-requests: write
