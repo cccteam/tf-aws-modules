@@ -43,6 +43,9 @@
     },
     "cloudwatch-logs": {
       "package-name": "cloudwatch-logs"
+    },
+    "ssm-patch-manager": {
+      "package-name": "ssm-patch-manager"
     }
   }
 }

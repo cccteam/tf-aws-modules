@@ -5,5 +5,6 @@
   "redis": "0.1.0",
   "rds": "0.1.0",
   "kms": "0.1.0",
-  "cloudwatch-logs": "0.1.0"
+  "cloudwatch-logs": "0.1.0",
+  "ssm-patch-manager": "0.1.2"
 }
