@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/cccteam/tf-aws-modules/compare/ssm-patch-manager/v0.1.2...ssm-patch-manager/v0.1.3) (2026-05-29)
+
+
+### Features
+
+* **ssm-patch-manager:** add SSM patch manager module with IAM roles and configurations ([#27](https://github.com/cccteam/tf-aws-modules/issues/27)) ([4f38be9](https://github.com/cccteam/tf-aws-modules/commit/4f38be935db484cf2c606ac29eb9a585b2c8e86b))
+
 ## [0.1.2](https://github.com/AscendiumEducationGroup/tf-ascendium-aws-modules/compare/ssm-patch-manager/v0.1.1...ssm-patch-manager/v0.1.2) (2026-05-27)
 
 
