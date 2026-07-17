@@ -10,7 +10,7 @@ permissions: {}
 
 jobs:
   release-please:
-    uses: cccteam/github-workflows/.github/workflows/release-please.yml@4987befcc33b8c6a81741990bb9818d55e7446fe # v6.0.0
+    uses: cccteam/github-workflows/.github/workflows/release-please.yml@2d56c0afedd66d33ffeb8907e96000ab582c669d # feat/sarif-uploads
     permissions:
       contents: write
       pull-requests: write
@@ -18,5 +18,5 @@ jobs:
       config-file: release-please-config.json
       manifest-file: .release-please-manifest.json
     secrets:
-      RELEASE_PLEASE_APP_ID: ${{ secrets.RELEASE_PLEASE_APP_ID }}
+      RELEASE_PLEASE_APP_CLIENT_ID: ${{ secrets.RELEASE_PLEASE_APP_CLIENT_ID }}
       RELEASE_PLEASE_APP_PEM: ${{ secrets.RELEASE_PLEASE_APP_PEM }}
