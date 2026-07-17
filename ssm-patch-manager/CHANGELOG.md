@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/cccteam/tf-aws-modules/compare/ssm-patch-manager/v0.1.3...ssm-patch-manager/v0.1.4) (2026-07-17)
+
+
+### Bug Fixes
+
+* update release-please workflow and fix IAM role policy attachment ([#29](https://github.com/cccteam/tf-aws-modules/issues/29)) ([7d68032](https://github.com/cccteam/tf-aws-modules/commit/7d68032bbe45f98f20650569524ddb862483df00))
+
 ## [0.1.3](https://github.com/cccteam/tf-aws-modules/compare/ssm-patch-manager/v0.1.2...ssm-patch-manager/v0.1.3) (2026-05-29)
 
 
