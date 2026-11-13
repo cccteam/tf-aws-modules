@@ -12,12 +12,12 @@ on:
 jobs:
   terraform-ci:
     name: Terraform CI
-    uses: cccteam/github-workflows/.github/workflows/terraform-ci.yml@4987befcc33b8c6a81741990bb9818d55e7446fe # v6.0.0
+    uses: cccteam/github-workflows/.github/workflows/terraform-ci.yml@c04487636a864da05d2990366d70445d585fdcf4 # v8.3.1
     with:
       terraform_version: '1.14.3'
       upload_sarif: true
     secrets:
-      app_id: ${{ secrets.TERRAFORM_APP_ID }}
+      app_client_id: ${{ secrets.TERRAFORM_APP_CLIENT_ID }}
       app_pem: ${{ secrets.TERRAFORM_APP_PEM }}
     permissions:
       actions: read
